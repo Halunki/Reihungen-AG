@@ -52,7 +52,12 @@ public class Balkendiagramm extends PApplet
         textFont(grosseSchrift);
         text("Balkendiagramm", 2, 20);
         textFont(kleineSchrift);
-
+        for (int i=0; i<10; i=i+1){
+            fill(barColor);
+            rect(120, 25+i*15, zahlen[i],8);
+            fill(fgColor);
+            text("i="+i+ " zahlen["+i+"]"+"="+ zahlen[i], 5, 35+i*15);
+        }
         // ----------------------------------------------------------------------
         // To Do
         // ----------------------------------------------------------------------

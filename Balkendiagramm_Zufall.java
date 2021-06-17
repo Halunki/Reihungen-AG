@@ -18,6 +18,7 @@ public class Balkendiagramm_Zufall extends PApplet
     int fgColor=0;
     int bgColor=255;
     int barColor=0xff0000ff;
+    
 
     /**
      * settings() Methode 
@@ -53,8 +54,15 @@ public class Balkendiagramm_Zufall extends PApplet
 
     public void erzeugeZufallsarray(int laenge) {
         // ToDo: Neues Array der richtigen Länge erzeugen
-
+        if (laenge<0) return;
+        
+        zahlen= new int [laenge];
+        for(int x=0; x<laenge; x=x+1){    
+            
+            zahlen[x] =  getZufallszahl(0, 300);
+        }
         // ToDo: Jedes Element mit einer Zufallszahl belegen
+        
 
     }
 
@@ -70,6 +78,12 @@ public class Balkendiagramm_Zufall extends PApplet
         textFont(kleineSchrift);
 
         // ToDo: Kopiere Code aus Balkendiagramm
+        for (int i=0; i<zahlen.length; i=i+1){
+            fill(barColor);
+            rect(120, 25+i*15, zahlen[i],8);
+            fill(fgColor);
+            text("i="+i+ " zahlen["+i+"]"+"="+ zahlen [i], 5, 35+i*15);
+        }
     }
 
     /**
