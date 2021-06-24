@@ -17,7 +17,11 @@ public class Balkendiagramm_CSV extends PApplet
     //------------
     // TODO
     //------------
-
+    int[] zahlen;
+    String[] namen;
+    int fgColor=0;
+    int bgColor=255;
+    int barColor=0xff0000ff;
     // Schriften
     PFont kleineSchrift;  
     PFont grosseSchrift;  
@@ -44,7 +48,7 @@ public class Balkendiagramm_CSV extends PApplet
         // Schriften laden
         kleineSchrift = createFont("fonts/NotoSans-Medium.ttf", 12); //12 / 26
         grosseSchrift = createFont("fonts/NotoSansDisplay-Medium.ttf",20); //20 /48
-   
+
         // CSV-Datei laden und anzeigen
         ladeTabelle("data/punkte.csv");
         zeichneBalken();
@@ -56,30 +60,38 @@ public class Balkendiagramm_CSV extends PApplet
 
         // Initialisiere Arrays, in die alle Zeilen der Tabelle passen
         // Die Anzahl der gespeicherten Zeilen bekommt man mit csv.getRowCount()
-        //------------
-        // TODO
-        //------------
-
+        zahlen= new int[csv.getRowCount()];
+        namen= new String[csv.getRowCount()];
         // Fülle die Arrays mit Werten aus der Tabelle
         // Mit csv.getInt(zeilennummer, "Name der Spalte") oder csv.getInt(zeilennummer, spaltennummer)
         // bekommt man die Werte der Tabelleneinträge als Integer-Wert
         // Informiere dich unter https://processing.org/reference/Table.html, welche Methode geeignet ist,
         // um die Namen der Spieler als String zu bekommen. getInt hilft hier nicht weiter.
-        //------------
-        // TODO
-        //------------  
+        for (int i=0; i<csv.getRowCount(); i=i+1){
+            zahlen[i]=csv.getInt(i,"Punkte");
+            namen[i]=csv.getString(i,"Name");
+        }
     }
 
     public void zeichneBalken() {
 
         clear();
+        background(bgColor);
 
         // Überschrift
-        fill(255,255,255);
+        fill(fgColor);
         textFont(grosseSchrift);
-        text("Punkte", 2, 20);
-        textFont(kleineSchrift);  
+        text("Balkendiagramm", 2, 20);
+        textFont(kleineSchrift);
 
+        // ToDo: Kopiere Code aus Balkendiagramm
+        for (int i=0; i<zahlen.length; i=i+1){
+            fill(barColor);
+            rect(120, 25+i*15, zahlen[i],8);
+            fill(fgColor);
+            text(namen[i], 5, 35+i*15);
+            text(zahlen[i], 80, 35+i*15);
+        }
         // Alle Einträge darstellen
         // lasse alle Ergebnisse der Spieler in der Form
         // SpielerXY  234 XXXXXXXXXXXXXXXX

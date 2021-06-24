@@ -19,6 +19,9 @@ public class Maximumsuche extends PApplet
     // Liste mit allen Werten //<>//
     int[]    zahlen;    
     String[] namen;
+    int maximum =0;
+    int anzeigen=0;
+    
 
     // Hilfsvariablen für die Suche
     // -------------------------------------------------------------------
@@ -126,14 +129,19 @@ public class Maximumsuche extends PApplet
         // Alle Einträge darstellen
         if (zahlen != null) {
             for (int i = 0; i< zahlen.length; i++) {
-
+                
                 fill(20,25,165);
                 // aktuelle Elemente farblich hervorheben
                 // ----------------------------------------------------------------------
                 // ToDo: Falls i dem aktuell untersuchtem oder der aktuellen Maximal-
                 //       position entspricht, muss eine andere Farbe gewählt werden
                 // ----------------------------------------------------------------------
-
+                if(i==anzeigen){
+                fill (237, 123, 13);
+            }
+                if(i==maximum){
+                fill (130, 75, 234);
+            }
                 // Balkendiagramm zeichnen
                 if (zahlen[i]>=0) rect(120, 25+i*15, zahlen[i]+1, 13);
 
@@ -158,8 +166,20 @@ public class Maximumsuche extends PApplet
         //       Als Ergebnis soll die Methode die Position des Maximums zurückgeben
         //       Kommentiere die Maximumsuche
         // ------------------------------------------------------------------------------
+        if(zahlen.length==0){
+            return -1;
+        }
+
+        maximum=0;
+        for(anzeigen=0; anzeigen<zahlen.length; anzeigen++){
+            redraw();
+            delay(verzoegerung);
+            if(zahlen[anzeigen]>zahlen[maximum]){
+                maximum=anzeigen;
+            }
+        }
         //<>//
-        return -1;
+         return maximum;
     }
 
     /**
